@@ -1,0 +1,4 @@
+{"created_at":"Mon Mar 28 23:23:12 +0000 2016","entities":{"hashtags":[{"text":"hiring"}],"urls":[]}}
+{"created_at":"Mon Mar 28 23:23:12 +0000 2016","entities":{"hashtags":[],"urls":[]}}
+{"created_at":"Mon Mar 28 23:23:12 +0000 2016","entities":{"hashtags":[{"text":"hiring"},{"text":"job"}],"urls":[]}}
+{"created_at":"Mon Mar 28 23:24:13 +0000 2016","entities":{"hashtags":[{"text":"hiring"},{"text":"apple"}],"urls":[]}}
