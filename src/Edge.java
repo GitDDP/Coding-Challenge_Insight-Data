@@ -6,12 +6,11 @@ public class Edge implements Comparable<Edge> {
     private Date indate;
     
 
-    
     /**
      * 
      * @param one The first vertex in the Edge
      * @param two The second vertex of the Edge
-     * @param weight The weight of this Edge
+     * @param indate The incoming date of this Edge
      */
     public Edge(Vertex one, Vertex two, Date indate){
         this.one = (one.getLabel().compareTo(two.getLabel()) <= 0) ? one : two;
@@ -30,7 +29,6 @@ public class Edge implements Comparable<Edge> {
     }
     
     /**
-     * 
      * @return Vertex this.two
      */
     public Vertex getTwo(){
@@ -64,7 +62,7 @@ public class Edge implements Comparable<Edge> {
      * compareTo() is used to compare Edge weights
      * 
      * @param other The Edge to compare against this
-     * @return int this.weight - other.weight
+     * @return int this.indate comparing with other.indate
      */
     public int compareTo(Edge other){
         if(this.indate.before(other.indate)){

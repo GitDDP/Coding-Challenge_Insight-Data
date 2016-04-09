@@ -15,13 +15,13 @@ public class Graph {
 
     
     /**
-     * Accepts two vertices and a weight, and adds the edge 
-     * ({one, two}, weight) iff no Edge relating one and two 
+     * This method Accepts two vertices and a Date, and adds the edge
+     * ({one, two, indate}) iff no Edge relating one and two 
      * exists in the Graph.
      * 
      * @param one The first Vertex of the Edge
      * @param two The second Vertex of the Edge
-     * @param weight The weight of the Edge
+     * @param indate The incoming date of the Edge
      * @return true iff no Edge already exists in the Graph
      */
     public boolean addEdge(Vertex one, Vertex two, Date indate){
@@ -30,9 +30,12 @@ public class Graph {
         }
        
         //ensures the Edge is not in the Graph
+        //if the Edge exists, compare the incoming date, update to the nearest one. 
         Edge e = new Edge(one, two,indate);
         if(edges.containsKey(e.hashCode())){
+        	if(edges.get(e.hashCode()).getDate().before(indate))
             edges.get(e.hashCode()).setDate(indate);
+        	//System.out.println("EDGESDaTES: "+edges.get(e.hashCode()).getDate());
         	return false;
         }
        
@@ -43,7 +46,7 @@ public class Graph {
         
         edges.put(e.hashCode(), e);
         one.addNeighbor(e);
-        two.addNeighbor(e);
+        two.addNeighbor(e); 
         myNumEdges++;
         
         return true;
@@ -96,28 +99,23 @@ public class Graph {
     }
     
     /**
-     * This method adds a Vertex to the graph. If a Vertex with the same label
-     * as the parameter exists in the Graph, the existing Vertex is overwritten
-     * only if overwriteExisting is true. If the existing Vertex is overwritten,
-     * the Edges incident to it are all removed from the Graph.
-     * 
+     * This method adds a Vertex to the graph. If the Vertex exists already, 
+     * combine the neibouring Edges together.
      * @param vertex
-     * @param overwriteExisting
      * @return true iff vertex was added to the Graph
      */
-    public boolean addVertex(Vertex vertex, boolean overwriteExisting){
+    public boolean addVertex(Vertex vertex){
         Vertex current = this.vertices.get(vertex.getLabel());
         if(current != null){
-            if(!overwriteExisting){
+        	
+        	if(vertex.getNeighbors().size()>0){   // combine the Neighbouring Edges of the Vertex.
+        		for(int i=0; i<vertex.getNeighbors().size();i++){
+        			current.addNeighbor(vertex.getNeighbors().get(i));
+        		}
+        		
+        	}
                 return false;
-            }
-            
-            while(current.getNeighborCount() > 0){
-                this.removeEdge(current.getNeighbor(0));
-            }
-        }
-        
-        
+         }
         vertices.put(vertex.getLabel(), vertex);
         myNumVertices++;
         return true;
@@ -130,8 +128,6 @@ public class Graph {
      */
     public Vertex removeVertex(String label){
         Vertex v = vertices.remove(label);
-        
-       
         myNumVertices--;
         return v;
     }
